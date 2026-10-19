@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="KCMemMonitor.RingChartControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="240" Height="240">
+
+    <!-- 环形饼图：底环 + 渐变进度弧 + 中央数值 -->
+    <Grid>
+        <Canvas x:Name="RingCanvas" Width="240" Height="240" />
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="2">
+            <TextBlock x:Name="CenterValueText"
+                       Text="0%"
+                       FontSize="52"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center" />
+            <TextBlock x:Name="CenterCaptionText"
+                       Text="内存占用"
+                       FontSize="13"
+                       Foreground="{ThemeResource MemoryDimBrush}"
+                       HorizontalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</UserControl>

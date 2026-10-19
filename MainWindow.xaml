@@ -1,0 +1,189 @@
+﻿<Window
+    x:Class="KCMemMonitor.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:KCMemMonitor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="克铖内存监控器">
+
+    <Grid Background="{ThemeResource MemoryBgBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部标题栏 -->
+        <Grid Grid.Row="0"
+              Height="60"
+              Padding="28,0,24,0"
+              Background="{ThemeResource MemorySurfaceBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                <FontIcon Glyph="&#xE80F;" FontSize="20"
+                          Foreground="{ThemeResource MemoryAccentBrush}" />
+                <TextBlock Text="内存监控" FontSize="20" FontWeight="SemiBold"
+                           Foreground="White" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10"
+                        VerticalAlignment="Center">
+                <Border x:Name="LiveBadge" CornerRadius="10" Padding="12,4"
+                        Background="{ThemeResource MemoryLiveBrush}">
+                    <TextBlock x:Name="LiveText" Text="● 实时更新" FontSize="12" Foreground="White" />
+                </Border>
+                <Button x:Name="RefreshButton" Click="OnRefreshClicked"
+                        Padding="10" Background="{ThemeResource MemoryCardBrush}"
+                        BorderThickness="0" CornerRadius="8"
+                        ToolTipService.ToolTip="立即刷新">
+                    <FontIcon Glyph="&#xE72C;" FontSize="16" Foreground="White" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- 内容区 -->
+        <Grid Grid.Row="1" Margin="28,20,28,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="270" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左区：5 项整机内存指标卡片 -->
+            <StackPanel Grid.Column="0" Spacing="12">
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14" VerticalAlignment="Center">
+                        <Border Width="42" Height="42" CornerRadius="12"
+                                Background="{ThemeResource MemoryAccentBrush}">
+                            <SymbolIcon Symbol="Save" Width="20" Height="20" Foreground="White" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="总内存" FontSize="13" Foreground="{ThemeResource MemoryDimBrush}" />
+                            <TextBlock x:Name="TotalMemoryText" Text="--" FontSize="22"
+                                       FontWeight="SemiBold" Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14" VerticalAlignment="Center">
+                        <Border Width="42" Height="42" CornerRadius="12"
+                                Background="{ThemeResource MemoryAccentBrush}">
+                            <SymbolIcon Symbol="ProtectedDocument" Width="20" Height="20" Foreground="White" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="已用内存" FontSize="13" Foreground="{ThemeResource MemoryDimBrush}" />
+                            <TextBlock x:Name="UsedMemoryText" Text="--" FontSize="22"
+                                       FontWeight="SemiBold" Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14" VerticalAlignment="Center">
+                        <Border Width="42" Height="42" CornerRadius="12"
+                                Background="{ThemeResource MemoryCyanBrush}">
+                            <SymbolIcon Symbol="Folder" Width="20" Height="20" Foreground="White" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="可用内存" FontSize="13" Foreground="{ThemeResource MemoryDimBrush}" />
+                            <TextBlock x:Name="AvailableMemoryText" Text="--" FontSize="22"
+                                       FontWeight="SemiBold" Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14" VerticalAlignment="Center">
+                        <Border Width="42" Height="42" CornerRadius="12"
+                                Background="{ThemeResource MemoryPurpleBrush}">
+                            <SymbolIcon Symbol="Find" Width="20" Height="20" Foreground="White" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="内存占用" FontSize="13" Foreground="{ThemeResource MemoryDimBrush}" />
+                            <TextBlock x:Name="PercentText" Text="--%" FontSize="22"
+                                       FontWeight="SemiBold" Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource MetricCardStyle}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14" VerticalAlignment="Center">
+                        <Border Width="42" Height="42" CornerRadius="12"
+                                Background="{ThemeResource MemoryYellowBrush}">
+                            <SymbolIcon Symbol="Setting" Width="20" Height="20" Foreground="Black" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="内存压力" FontSize="13" Foreground="{ThemeResource MemoryDimBrush}" />
+                            <TextBlock x:Name="PressureText" Text="--" FontSize="22"
+                                       FontWeight="SemiBold" Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <!-- 中区：环形饼图 + 压力指示条 -->
+            <Grid Grid.Column="1" Margin="20,0,20,0" RowSpacing="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Style="{StaticResource PanelStyle}" Padding="16,20">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="6">
+                        <controls:RingChartControl x:Name="RingChart" HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal" Spacing="28" HorizontalAlignment="Center"
+                                    Margin="0,14,0,0">
+                            <StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
+                                <Ellipse Width="10" Height="10"
+                                         Fill="{ThemeResource MemoryAccentBrush}" />
+                                <TextBlock Text="已用内存" FontSize="12" Foreground="{ThemeResource MemoryDimBrush}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
+                                <Ellipse Width="10" Height="10"
+                                         Fill="{ThemeResource MemoryTrackBrush}" />
+                                <TextBlock Text="可用内存" FontSize="12" Foreground="{ThemeResource MemoryDimBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Style="{StaticResource PanelStyle}" Padding="20,14">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="18">
+                        <TextBlock Text="内存压力" FontSize="13" VerticalAlignment="Center"
+                                   Foreground="{ThemeResource MemoryDimBrush}" />
+                        <Canvas x:Name="PressureCanvas" Grid.Column="1" Height="40"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <Rectangle x:Name="PressureTrack" Height="3" RadiusX="1.5" RadiusY="1.5"
+                                       Fill="{ThemeResource MemoryTrackBrush}" Canvas.Top="6" />
+                            <Ellipse x:Name="PressureThumb" Width="12" Height="12" Canvas.Top="2"
+                                     Fill="{ThemeResource MemoryYellowBrush}" />
+                            <TextBlock x:Name="PressureLowText" Text="低" FontSize="12" Canvas.Top="24"
+                                       Foreground="{ThemeResource MemoryDimBrush}" />
+                            <TextBlock x:Name="PressureMidText" Text="中" FontSize="12" Canvas.Top="24"
+                                       Foreground="{ThemeResource MemoryDimBrush}" />
+                            <TextBlock x:Name="PressureHighText" Text="高" FontSize="12" Canvas.Top="24"
+                                       Foreground="{ThemeResource MemoryDimBrush}" />
+                        </Canvas>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- 右区：近60秒使用趋势 -->
+            <Border Grid.Column="2" Style="{StaticResource PanelStyle}" Padding="20,18">
+                <Grid RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="使用趋势" FontSize="15" FontWeight="SemiBold" Foreground="White" />
+                        <TextBlock Text="近60秒" FontSize="13" VerticalAlignment="Center"
+                                   Foreground="{ThemeResource MemoryDimBrush}" />
+                    </StackPanel>
+                    <controls:TrendChartControl x:Name="TrendChart" Grid.Row="1" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

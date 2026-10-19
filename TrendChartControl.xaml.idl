@@ -1,0 +1,9 @@
+namespace KCMemMonitor
+{
+    [default_interface]
+    runtimeclass TrendChartControl : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        TrendChartControl();
+        void SetPoints(Windows.Foundation.Collections.IVector<Single> values);
+    }
+}

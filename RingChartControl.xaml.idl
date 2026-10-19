@@ -1,0 +1,9 @@
+namespace KCMemMonitor
+{
+    [default_interface]
+    runtimeclass RingChartControl : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        RingChartControl();
+        void SetValue(Double percent);
+    }
+}
