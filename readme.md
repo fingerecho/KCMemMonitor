@@ -1,4 +1,3 @@
-
 # KCMemMonitor 克铖内存监控器
 
 本项目是基于 C++ 与 WinUI3 的 Windows 整机物理内存监控工具，不含进程列表。
