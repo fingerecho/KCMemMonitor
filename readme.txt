@@ -1,27 +1,10 @@
-========================================================================
-    KCMemMonitor Project Overview
-========================================================================
 
-This project demonstrates how to get started writing WinUI3 apps directly
-with standard C++, using the Windows App SDK and C++/WinRT packages and
-XAML compiler support to generate implementation headers from interface
-(IDL) files. These headers can then be used to implement the local
-Windows Runtime classes referenced in the app's XAML pages.
+# KCMemMonitor 克铖内存监控器
 
-Steps:
-1. Create an interface (IDL) file to define any local Windows Runtime
-    classes referenced in the app's XAML pages.
-2. Build the project once to generate implementation templates under
-    the "Generated Files" folder, as well as skeleton class definitions
-    under "Generated Files\sources".
-3. Use the skeleton class definitions for reference to implement your
-    Windows Runtime classes.
+本项目是基于 C++ 与 WinUI3 的 Windows 整机物理内存监控工具，不含进程列表。
+界面实时展示总内存、已用内存、可用内存、占用百分比与内存压力等级五项指标，
+并以环形饼图和近 60 秒动态趋势图直观呈现，支持秒级刷新、带调试日志，打包为 MSIX 安装分发。
 
-========================================================================
-Learn more about Windows App SDK here:
-https://docs.microsoft.com/windows/apps/windows-app-sdk/
-Learn more about WinUI3 here:
-https://docs.microsoft.com/windows/apps/winui/winui3/
-Learn more about C++/WinRT here:
-http://aka.ms/cppwinrt/
-========================================================================
+### 运行效果截图
+
+![主界面截图](docs/main-window.png)
